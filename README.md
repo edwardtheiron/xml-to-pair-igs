@@ -1,3 +1,3 @@
 # xml-to-pair-igs
-Tool that creates XML file for IGS file from given template file. (Railworks/Train Simulator Blueprints)
-Can work with dir recursively
+Tool that creates XML files for IGS files from given template file. (Railworks/Train Simulator Blueprints)
+Can work with dirs recursively.
