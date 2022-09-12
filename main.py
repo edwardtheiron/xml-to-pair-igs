@@ -4,9 +4,10 @@ import os
 #fixed "looses subdirs for GeomID"
 #bugs: 1.file counter works wrong 2.ignores old xmls
 #todo: relative paths, terminal args
+#added: hardcoded insulator postfix
 
 #temp global vars
-template_path = r"C:\\d\\template.xml"
+template_path = r"G:\\TS 2020 Ekb\\Source\\RailroadSim\\AC4\\gp_template.xml"
 placeholder = "placeholder"
 path_placeholder = "PATH_PLACEHOLDER"
 file_count = 0
@@ -17,7 +18,8 @@ def dir_processor(dir_path):
         # check if current path is a folder        
         joined_path = os.path.join(dir_path, path)
         if os.path.isdir(joined_path):
-            dir_processor(joined_path)
+            a=1
+            #dir_processor(joined_path)
         if os.path.isfile(joined_path):
             file_processor(dir_path, path)
 
@@ -31,8 +33,16 @@ def file_processor(dir_path, path):
             with open(template_path,'r') as template_file, open(os.path.join(dir_path, xml_name), 'w') as new_xml:                        
                 for line in template_file:
                     #print(type(line))                           
+
                     if placeholder in line:
-                        line = line.replace(placeholder,base_name)
+                        if "PS-70" in dir_path:
+                            line = line.replace(placeholder,base_name + "_ps-70")
+                        elif "PF-70" in dir_path:
+                            line = line.replace(placeholder,base_name + "_pf-70")
+                        elif "PSD-70" in dir_path:
+                            line = line.replace(placeholder,base_name + "_psd-70")
+                        else:     
+                            line = line.replace(placeholder,base_name)
                     #else:
                         #print(f"No {placeholder} in file")
                     if path_placeholder in line:
@@ -73,8 +83,8 @@ def adapt_path(dir_path):
 
 def xml_creator():    
     # folder path
-    dir_path = r"C:\\d\\" 
-    
+    #dir_path = r"C:\\d\\" 
+    dir_path = r"G:\\TS 2020 Ekb\\Source\\RailroadSim\\AC4\\Common\\ac4_trainz\\GP"
     # list to store files
     # res = []
     dir_processor(dir_path)
